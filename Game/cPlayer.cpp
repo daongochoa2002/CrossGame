@@ -37,7 +37,7 @@ void cPlayer::setPosition(short x, short y)
 }
 void cPlayer::Up()
 {
-	Y -= 0 * SPEED;
+	Y -= SPEED;
 }
 void cPlayer::Down()
 {
