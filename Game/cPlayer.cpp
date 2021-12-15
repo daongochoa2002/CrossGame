@@ -123,7 +123,7 @@ bool cPlayer::isImpactDinosaur(cDinosaur* p, int lv)
 
 bool cPlayer::isFinish()
 {
-	return Y >= 36;
+	return Y >= 37;
 }
 void cPlayer::Set_State(bool a)
 {

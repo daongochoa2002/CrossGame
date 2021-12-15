@@ -49,15 +49,15 @@ void cGame::printTrafficLights()
 }
 void cGame::DrawGame() 
 { 
-	Graphics::DrawGraphics(ohandle, "map.txt", COORD{ 0,0 }, (int)Color::yellow);
 	while (!quit) 
 	{
 		if (!player->isDead()) 
 		{
 			UpdatePosPlayer(MOVING);
 		}
-		MOVING = ' ';
+		Graphics::DrawGraphics(ohandle, "map.txt", COORD{ 0,0 }, (int)Color::yellow);
 		player->Draw();
+		MOVING = ' ';
 		UpdatePosVehicle();
 		UpdatePosAnimal();
 		printTrafficLights();
@@ -75,7 +75,7 @@ void cGame::DrawGame()
 			LevelUp();
 			PlaySound(L"BG.wav", NULL, SND_LOOP | SND_FILENAME | SND_ASYNC);
 		}
-		Sleep(60);
+		Sleep(50);
 	}
 
 }
@@ -97,20 +97,16 @@ void cGame::StartGame()
 	{
 		truck[i].setPosition(LEFT, 18);
 		truck[i].set_speed(1);
-		car[i].setPosition(LEFT, 26);
+		car[i].setPosition(LEFT, 28);
 		car[i].set_speed(1);
 	}
 	for (int i = 0; i < curAN; i++) 
 	{
-		bird[i].setPosition(RIGHT, 22);
+		bird[i].setPosition(RIGHT, 23);
 		bird[i].set_speed(-1);
-		dinosaur[i].setPosition(RIGHT, 31);
+		dinosaur[i].setPosition(RIGHT, 33);
 		dinosaur[i].set_speed(-1);
 	}
-
-	Graphics::SetColor(ohandle, 0);
-	system("cls");
-	Graphics::DrawGraphics(ohandle, "map.txt", COORD{ 0,0 }, (int)Color::yellow);
 }
 
 void cGame::RunGame() 
@@ -123,7 +119,7 @@ void cGame::RunGame()
 		{
 			char current = _getch();
 
-			if (current == 'q' || current == 'Q')
+			if (current == 'q')
 			{
 				ExitGame(&t);
 
@@ -131,37 +127,17 @@ void cGame::RunGame()
 			else if (current == 'p' || current == 'P')
 			{
 				PauseGame((HANDLE)t.native_handle());
-
-				Graphics::SetColor(GetStdHandle(STD_OUTPUT_HANDLE), 14);
-				Graphics::GotoXY(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ 82,40 });
-				cout << "To continue game press any key !";
-				char ans = _getch();
-
-				if (ans != '@')
-				{
-					system("cls");
-					Graphics::DrawGraphics(ohandle, "map.txt", COORD{ 0,0 }, (int)Color::yellow);
-					ResumeGame((HANDLE)t.native_handle());
-				}
-				else
-				{
-					system("cls");
-					Graphics::DrawGraphics(ohandle, "map.txt", COORD{ 0,0 }, (int)Color::yellow);
-					ResumeGame((HANDLE)t.native_handle());
-				}
 			}
 			else if (current == 'g' || current == 'G')
 			{
 				PauseGame((HANDLE)t.native_handle());
 				SaveGame();
-				Graphics::DrawGraphics(ohandle, "map.txt", COORD{ 0,0 }, (int)Color::yellow);
 				ResumeGame((HANDLE)t.native_handle());
 			}
 			else if (current == 'l' || current == 'L')
 			{
 				PauseGame((HANDLE)t.native_handle());
 				LoadGame();
-				Graphics::DrawGraphics(ohandle, "map.txt", COORD{ 0,0 }, (int)Color::yellow);
 				ResumeGame((HANDLE)t.native_handle());
 			}
 			else if
@@ -365,10 +341,8 @@ void cGame::SaveGame()
 {
 	string name;
 	Graphics::SetColor(GetStdHandle(STD_OUTPUT_HANDLE), 14);
-	Graphics::GotoXY(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ 82,40 });
+	Graphics::GotoXY(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ 50,20 });
 	cout << "The name of file that you want to SAVE is: "; cin >> name;
-
-	system("cls");
 
 	string load = name + ".txt";
 	fstream file(load, ios::out);
@@ -394,20 +368,16 @@ void cGame::SaveGame()
 		file << dinosaur[i].Get_X() << " " << dinosaur[i].Get_Y() << " " << dinosaur[i].get_speed() << " ";
 	}
 	file.close();
+	system("cls");
 }
 
 void cGame::LoadGame() 
 {
-	Graphics::SetColor(ohandle, 0);
-	system("cls");
 	string name;
 	Graphics::SetColor(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-	Graphics::GotoXY(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ 82,40 });
+	Graphics::GotoXY(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ 50,20 });
 	cout << "The name of file that you want to LOAD is: "; cin >> name;
 	deleteObject();
-	Graphics::SetColor(ohandle, 0);
-	system("cls");
-	Graphics::DrawGraphics(ohandle, "map.txt", COORD{ 0,0 }, (int)Color::yellow);
 	quit = false;
 	string load = name + ".txt";
 	fstream file(load, ios::in);
@@ -465,4 +435,5 @@ void cGame::LoadGame()
 		dinosaur[i].set_speed(s);
 	}
 	file.close();
+	system("cls");
 }

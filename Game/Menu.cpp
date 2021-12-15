@@ -118,10 +118,16 @@ void Menu::LoadStateMenu(short y)
 	if (y == 1)
 	{
 		PauseMusic();
+		Graphics::SetColor(ohandle, 0);
+		system("cls");
+		Graphics::DrawGraphics(ohandle, "map.txt", COORD{ 0,0 }, (int)Color::yellow);
 		a->StartGame();
 		a->RunGame();
 	}
 	else if (y == 2) {
+		Graphics::SetColor(ohandle, 0);
+		system("cls");
+		Graphics::DrawGraphics(ohandle, "map.txt", COORD{ 0,0 }, (int)Color::yellow);
 		PauseMusic();
 		a->LoadGame();
 		a->RunGame();
@@ -135,7 +141,6 @@ void Menu::LoadStateMenu(short y)
 		DrawExit();
 		exit(0);
 	}
-
 }
 
 //OPTION
