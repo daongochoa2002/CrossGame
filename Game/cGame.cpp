@@ -184,10 +184,10 @@ void cGame::ExitGame(thread* t)
 void cGame::UpdatePosPlayer(char current) 
 {
 	player->Clear();
-	if (current == 'a') player->Left();
-	else if (current == 'd' && player->Get_X() <= RIGHT) player->Right();
-	else if (current == 's') player->Down();
-	else if (current == 'w' && player->Get_Y() >= TOP) player->Up();
+	if (current == 'a'|| current == 'A') player->Left();
+	else if ((current == 'd'|| current == 'D') && player->Get_X() <= RIGHT) player->Right();
+	else if (current == 'S' || current == 's') player->Down();
+	else if ((current == 'W' || current == 'w') && player->Get_Y() >= TOP) player->Up();
 	else return;
 }
 
@@ -373,6 +373,7 @@ void cGame::SaveGame()
 
 void cGame::LoadGame() 
 {
+	quit = false;
 	string name;
 	Graphics::SetColor(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 	Graphics::GotoXY(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ 50,20 });

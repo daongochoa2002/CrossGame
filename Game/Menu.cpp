@@ -4,7 +4,6 @@
 
 //MENU
 Menu::Menu() {
-	a = cGame::getInstance();
 }
 
 void Menu::PlayMusic()
@@ -118,6 +117,7 @@ void Menu::LoadStateMenu(short y)
 	if (y == 1)
 	{
 		PauseMusic();
+		a = cGame::getInstance();
 		Graphics::SetColor(ohandle, 0);
 		system("cls");
 		Graphics::DrawGraphics(ohandle, "map.txt", COORD{ 0,0 }, (int)Color::yellow);
@@ -125,6 +125,7 @@ void Menu::LoadStateMenu(short y)
 		a->RunGame();
 	}
 	else if (y == 2) {
+		a = cGame::getInstance();
 		Graphics::SetColor(ohandle, 0);
 		system("cls");
 		Graphics::DrawGraphics(ohandle, "map.txt", COORD{ 0,0 }, (int)Color::yellow);
